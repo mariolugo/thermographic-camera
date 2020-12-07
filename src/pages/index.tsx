@@ -1,12 +1,11 @@
 import Head from 'next/head';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { Layout, Values } from '../components';
+import { Layout, Values, TableValues } from '../components';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {},
     paper: {
       padding: theme.spacing(2),
       textAlign: 'center',
@@ -39,10 +38,10 @@ const Home = (props: Props) => {
         <Values {...data} />
         <Grid container spacing={3} className={classes.container}>
           <Grid item xs={12} md={6}>
-            <Paper className={classes.paper}>xs=6</Paper>
+            <TableValues />
           </Grid>
           <Grid item xs={12} md={6}>
-            <Paper className={classes.paper}>xs=6</Paper>
+            <Paper className={classes.paper}>Image</Paper>
           </Grid>
         </Grid>
       </Layout>
