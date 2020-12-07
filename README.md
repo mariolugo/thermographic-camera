@@ -36,6 +36,8 @@ deployments to production
 Developtment branch.
 ### feature/initial_setup 
 Adding tsconfig, precommiter and material ui.
+### feature/layout
+Adding the base responsive layout.
 
 ## Styling
 
