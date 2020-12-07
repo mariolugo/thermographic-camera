@@ -2,9 +2,13 @@ import React from 'react';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 
-const useStyles = makeStyles((_: Theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   root: {
     flexGrow: 1,
+  },
+  paper: {
+    padding: theme.spacing(2),
+    marginTop: theme.spacing(2),
   },
 }));
 
@@ -20,7 +24,7 @@ export const Values = (props: Props) => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <Paper elevation={1}>
+      <Paper elevation={1} className={classes.paper}>
         <p>Ambient Temperature : {ambientTemperture}</p>
         <p>Exterior Temperature : {exteriorTemperature}</p>
         <p>Patient Temperature : {patientTemperature}</p>

@@ -7,7 +7,8 @@ import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((_: Theme) => ({
   root: {
-    flexGrow: 1,
+    top: 'auto',
+    bottom: 0,
   },
   title: {
     flexGrow: 1,
@@ -16,15 +17,14 @@ const useStyles = makeStyles((_: Theme) => ({
 
 type Props = {};
 
-export const Navbar = (props: Props) => {
+export const Footer = (_: Props) => {
   const classes = useStyles();
   return (
-    <AppBar position="static" className={classes.root}>
+    <AppBar position="fixed" className={classes.root}>
       <Toolbar>
         <Typography variant="h6" className={classes.title}>
-          Eva Tech Test
+          Made by Mario Lugo
         </Typography>
-        <Button color="inherit">Github Repo</Button>
       </Toolbar>
     </AppBar>
   );

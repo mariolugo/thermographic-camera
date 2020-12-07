@@ -1,11 +1,20 @@
 import Head from 'next/head';
-import Typography from '@material-ui/core/Typography';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { Layout, Values } from '../components';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 
-const useStyles = makeStyles((_: Theme) =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {},
+    paper: {
+      padding: theme.spacing(2),
+      textAlign: 'center',
+      color: theme.palette.text.secondary,
+    },
+    container: {
+      marginTop: theme.spacing(2),
+    },
   }),
 );
 
@@ -28,6 +37,14 @@ const Home = (props: Props) => {
       </Head>
       <Layout>
         <Values {...data} />
+        <Grid container spacing={3} className={classes.container}>
+          <Grid item xs={12} md={6}>
+            <Paper className={classes.paper}>xs=6</Paper>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Paper className={classes.paper}>xs=6</Paper>
+          </Grid>
+        </Grid>
       </Layout>
     </>
   );

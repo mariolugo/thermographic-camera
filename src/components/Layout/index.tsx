@@ -1,14 +1,14 @@
 import React from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { Navbar } from '../Navbar';
+import { Footer } from '../Footer';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 const useStyles = makeStyles((_: Theme) =>
   createStyles({
     root: {
-      height: '100%',
+      flexGrow: 1,
     },
-    childrenContainer: {},
   }),
 );
 
@@ -24,9 +24,10 @@ export const Layout = (props: Props) => {
   return (
     <section className={`${classes.root} ${className}`}>
       <Navbar />
-      <Container className={classes.childrenContainer}>
+      <Container>
         <Box>{children}</Box>
       </Container>
+      <Footer />
     </section>
   );
 };
