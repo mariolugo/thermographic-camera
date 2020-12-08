@@ -32,6 +32,10 @@ const renderColor = (risk: string) => {
   }
 };
 
+/**
+ * This will render the current values, will warn if the risk is high
+ * @param props Props used for the values
+ */
 export const Values = (props: Props) => {
   const { ambientTemperture, exteriorTemperature, patientTemperature, risk } = props;
   const classes = useStyles();

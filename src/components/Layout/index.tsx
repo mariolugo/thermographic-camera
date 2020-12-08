@@ -18,6 +18,10 @@ type Props = {
   className?: string;
 };
 
+/**
+ * Basic layout, here we can have authentication.
+ * @param props The props have the children and classname props
+ */
 export const Layout = (props: Props) => {
   const { children, className } = props;
   const classes = useStyles(props);

@@ -24,6 +24,7 @@ const getClient = () => {
 /**
  * Create the axios client
  * We can add headers and maybe security tokens
+ * Add arraybuffer as responseType to get the image
  */
 const getImageClient = () => {
   const apiUrl = URL;
@@ -73,8 +74,9 @@ const getImage = (endpoint: string) => {
   return client
     .get(endpoint)
     .then(async (response: Response) => {
+      //convert image to base64
       const image = btoa(String.fromCharCode(...new Uint8Array(response.data)));
-
+      // if the headers are empty or undefined return undefined data
       if (typeof response.headers['content-type'] === 'undefined') {
         return {
           data: undefined,
@@ -82,7 +84,6 @@ const getImage = (endpoint: string) => {
         };
       }
       return {
-        // data: await Buffer.from(response.data, 'binary').toString('base64'),
         data: `data:${response.headers['content-type']};base64,${image}`,
         status: response.status,
       };

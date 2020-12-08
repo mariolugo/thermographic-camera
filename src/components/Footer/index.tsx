@@ -14,8 +14,12 @@ const useStyles = makeStyles((_: Theme) => ({
   },
 }));
 
-type Props = {};
+type Props = any;
 
+/**
+ * This is the footer component
+ * @param _ not used props
+ */
 export const Footer = (_: Props) => {
   const classes = useStyles();
   return (

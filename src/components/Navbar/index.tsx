@@ -14,9 +14,13 @@ const useStyles = makeStyles((_: Theme) => ({
   },
 }));
 
-type Props = {};
+type Props = any;
 
-export const Navbar = (props: Props) => {
+/**
+ * Navbar component
+ * @param _  Props not used
+ */
+export const Navbar = (_: Props) => {
   const classes = useStyles();
   return (
     <AppBar position="static" className={classes.root}>
@@ -24,7 +28,12 @@ export const Navbar = (props: Props) => {
         <Typography variant="h6" className={classes.title}>
           Eva Tech Test
         </Typography>
-        <Button color="inherit">Github Repo</Button>
+        <Button
+          color="inherit"
+          target="_blank"
+          href="https://github.com/mariolugo/thermographic-camera">
+          Github Repo
+        </Button>
       </Toolbar>
     </AppBar>
   );

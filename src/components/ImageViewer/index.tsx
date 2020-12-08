@@ -15,6 +15,10 @@ type Props = {
   image: string;
 };
 
+/**
+ * Render the base 64 image
+ * @param props this will have the image props
+ */
 export const ImageViewer = (props: Props) => {
   const { image } = props;
   const classes = useStyles(props);
