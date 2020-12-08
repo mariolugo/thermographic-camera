@@ -40,6 +40,7 @@ export default (state: HomeState = initialState, action: HomeActions) => {
           },
         },
         current: {
+          timeStamp: action.timeStamp,
           ...state.current,
           data: {
             error: action.error,
@@ -59,6 +60,7 @@ export default (state: HomeState = initialState, action: HomeActions) => {
         },
         current: {
           ...state.current,
+          timeStamp: action.timeStamp,
           data: {
             ...action.data,
             fetching: false,
@@ -93,6 +95,7 @@ export default (state: HomeState = initialState, action: HomeActions) => {
         },
         current: {
           ...state.current,
+          timeStamp: action.timeStamp,
           image: {
             image: action.image,
             fetching: false,
@@ -111,6 +114,7 @@ export default (state: HomeState = initialState, action: HomeActions) => {
         },
         current: {
           ...state.current,
+          timeStamp: action.timeStamp,
           image: {
             error: action.error,
             fetching: false,

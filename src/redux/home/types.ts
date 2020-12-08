@@ -53,6 +53,7 @@ export type HomeActions =
 interface DataInterface {
   data?: DataRepresentation;
   image?: ImageRepresentation;
+  timeStamp?: number;
 }
 export type HomeState = {
   [key: string]: DataInterface;

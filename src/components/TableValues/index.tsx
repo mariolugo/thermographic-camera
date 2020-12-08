@@ -10,32 +10,25 @@ import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import GetAppIcon from '@material-ui/icons/GetApp';
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles((_: Theme) => ({
   table: {},
 }));
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
-
-type Props = {
-  ambientTemperture: Number;
-  exteriorTemperature: Number;
-  patientTemperature: Number;
+type Record = {
+  ambientTemperture: number;
+  exteriorTemperature: number;
+  patientTemperature: number;
   risk: string;
   image: string;
+  timeStamp: number;
+};
+
+type Props = {
+  records: Array<Record>;
 };
 
 export const TableValues = (props: Props) => {
-  const { ambientTemperture, exteriorTemperature, patientTemperature, risk, image } = props;
+  const { records } = props;
   const classes = useStyles();
   return (
     <TableContainer component={Paper}>
@@ -51,15 +44,15 @@ export const TableValues = (props: Props) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.name}>
+          {records.map((row) => (
+            <TableRow key={row.timeStamp}>
               <TableCell component="th" scope="row">
-                {row.name}
+                {row.timeStamp}
               </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell>
+              <TableCell align="right">{row.ambientTemperture}</TableCell>
+              <TableCell align="right">{row.exteriorTemperature}</TableCell>
+              <TableCell align="right">{row.patientTemperature}</TableCell>
+              <TableCell align="right">{row.risk}</TableCell>
               <TableCell align="right">
                 <IconButton color="primary" aria-label="upload picture" component="span">
                   <GetAppIcon />

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { Layout, Values, TableValues, ImageViewer } from '../components';
@@ -30,11 +30,10 @@ type State = {
 };
 
 const Home = (props: Props) => {
+  const [records, setRecords] = useState<Array<any>>([]);
   const classes = useStyles(props);
   const dispatch = useDispatch();
   const current = useSelector((state: State) => state.home.current);
-
-  console.log('selector', current);
 
   useEffect(() => {
     const timeStamp = +new Date();
@@ -48,6 +47,13 @@ const Home = (props: Props) => {
     dispatch(homeActions.fetchImageAction(timeStamp));
   };
 
+  const clearLocalStorage = () => {
+    if (typeof window !== 'undefined') {
+      localStorage.clear();
+      setRecords([]);
+    }
+  };
+
   const imageLoaded = current && !current.image?.fetching && current.image?.image;
   const imageUndefined =
     current && !current.image?.fetching && typeof current.image?.image === 'undefined';
@@ -55,7 +61,28 @@ const Home = (props: Props) => {
   const dataLoaded = current && !current.data?.fetching;
   const imageHasError = current && !current.image?.fetching && current.image?.error;
 
-  console.log('imageHasError', imageHasError);
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const data = localStorage.getItem('evaValues') || '[]';
+      const parsedData = JSON.parse(data);
+
+      if (dataLoaded && imageLoaded) {
+        console.log('new record');
+
+        const input = {
+          timeStamp: current.timeStamp,
+          ...current.data,
+          image: current.image?.image,
+        };
+        setRecords([...parsedData, { ...input }]);
+        const dataString = [...parsedData, { ...input }];
+        localStorage.setItem('evaValues', JSON.stringify(dataString));
+      }
+    }
+  }, [current]);
+
+  console.log('records', records);
+
   return (
     <>
       <Head>
@@ -67,7 +94,7 @@ const Home = (props: Props) => {
 
         <Grid container spacing={3} className={classes.container}>
           <Grid item xs={12} md={6}>
-            {dataLoaded && <TableValues />}
+            {dataLoaded && <TableValues records={records} />}
           </Grid>
           <Grid item xs={12} md={6}>
             {imageFetching && <CircularProgress />}
@@ -84,6 +111,9 @@ const Home = (props: Props) => {
             )}
           </Grid>
         </Grid>
+        <Button variant="contained" color="primary" onClick={() => clearLocalStorage()}>
+          Clear local storage
+        </Button>
       </Layout>
     </>
   );
