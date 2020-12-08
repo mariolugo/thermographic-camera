@@ -29,24 +29,35 @@ type State = {
   home: HomeState;
 };
 
+/**
+ * Main entry point for the application
+ * @param props Props for the main component
+ */
 const Home = (props: Props) => {
+  // store the records on the state
   const [records, setRecords] = useState<Array<any>>([]);
   const classes = useStyles(props);
+  // dispatch
   const dispatch = useDispatch();
+  // selector for the current record
   const current = useSelector((state: State) => state.home.current);
 
+  // simulate a ComponentDidMount to dispatch both actions of the first render
   useEffect(() => {
     const timeStamp = +new Date();
     dispatch(homeActions.fetchValuesAction(timeStamp));
     dispatch(homeActions.fetchImageAction(timeStamp));
   }, []);
 
+  // manually trigger the fetchs
   const tryAgain = () => {
+    // fancy way to get the timestamp
     const timeStamp = +new Date();
     dispatch(homeActions.fetchValuesAction(timeStamp));
     dispatch(homeActions.fetchImageAction(timeStamp));
   };
 
+  // clear local storage manually
   const clearLocalStorage = () => {
     if (typeof window !== 'undefined') {
       localStorage.clear();
@@ -54,8 +65,12 @@ const Home = (props: Props) => {
     }
   };
 
+  // trigger download of the image
   const downloadImage = (timeStamp: number, image: string) => {
     if (typeof window !== 'undefined') {
+      // this create an "a" element, then we add the href attribute with the url image,
+      // and then the download attribute with the timeStamp as the name
+      // then simulate a click, which will trigger the download
       const downloadLink = document.createElement('a');
       downloadLink.href = image;
       downloadLink.download = `${timeStamp}`;
@@ -63,19 +78,29 @@ const Home = (props: Props) => {
     }
   };
 
+  // if image loaded
   const imageLoaded = current && !current.image?.fetching && current.image?.image;
+  // if image undefined
   const imageUndefined =
     current && !current.image?.fetching && typeof current.image?.image === 'undefined';
+  // if image fetching
   const imageFetching = current && current.image?.fetching;
+  // if data loaded
   const dataLoaded = current && !current.data?.fetching;
+  // if image has error
   const imageHasError = current && !current.image?.fetching && current.image?.error;
 
+  // this hook will excecute everytime current selector is updated
   useEffect(() => {
     if (typeof window !== 'undefined') {
+      // get data from local storage
       const data = localStorage.getItem('evaValues') || '[]';
+      // parse data from string
       const parsedData = JSON.parse(data);
 
+      // if image and data are loaded
       if (dataLoaded && imageLoaded) {
+        // create a new record to add to state then add to local storage
         const input = {
           timeStamp: current.timeStamp,
           ...current.data,
@@ -88,6 +113,8 @@ const Home = (props: Props) => {
     }
   }, [current]);
 
+  // this creates a timer to simulate a polling.. not the best practice..
+  // return a function to clear the timeout
   useEffect(() => {
     let timer: number;
 

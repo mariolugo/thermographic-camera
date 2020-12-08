@@ -28,6 +28,10 @@ type Props = {
   downloadImage: any;
 };
 
+/**
+ * This is the table component, it will show records and will be able to download
+ * @param props Props for the table component
+ */
 export const TableValues = (props: Props) => {
   const { records, downloadImage } = props;
   const classes = useStyles();
@@ -36,24 +40,18 @@ export const TableValues = (props: Props) => {
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
+            <TableCell>Download</TableCell>
             <TableCell>Date</TableCell>
+
             <TableCell align="right">Ambient Temperature</TableCell>
             <TableCell align="right">Exterior Temperature</TableCell>
             <TableCell align="right">Patient Temperature</TableCell>
             <TableCell align="right">Risk</TableCell>
-            <TableCell align="right">Download</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {records.map((row) => (
             <TableRow key={row.timeStamp}>
-              <TableCell component="th" scope="row">
-                {row.timeStamp}
-              </TableCell>
-              <TableCell align="right">{row.ambientTemperture}</TableCell>
-              <TableCell align="right">{row.exteriorTemperature}</TableCell>
-              <TableCell align="right">{row.patientTemperature}</TableCell>
-              <TableCell align="right">{row.risk}</TableCell>
               <TableCell align="right">
                 <IconButton
                   color="primary"
@@ -63,6 +61,13 @@ export const TableValues = (props: Props) => {
                   <GetAppIcon />
                 </IconButton>
               </TableCell>
+              <TableCell component="th" scope="row">
+                {row.timeStamp}
+              </TableCell>
+              <TableCell align="right">{row.ambientTemperture}</TableCell>
+              <TableCell align="right">{row.exteriorTemperature}</TableCell>
+              <TableCell align="right">{row.patientTemperature}</TableCell>
+              <TableCell align="right">{row.risk}</TableCell>
             </TableRow>
           ))}
         </TableBody>

@@ -1,7 +1,6 @@
 import { ServerStyleSheets } from '@material-ui/styles';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import React from 'react';
-import flush from 'styled-jsx/server';
 import { AppContext } from '../components/AppContext';
 import { MuiTheme } from '../components/MuiTheme';
 
