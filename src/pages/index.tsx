@@ -90,15 +90,15 @@ const Home = (props: Props) => {
     }
   }, [current]);
 
-  // useEffect(() => {
-  //   let timer: number;
+  useEffect(() => {
+    let timer: number;
 
-  //   if (dataLoaded && imageLoaded) {
-  //     timer = window.setTimeout(() => tryAgain(), 2000);
-  //   }
+    if (dataLoaded && imageLoaded) {
+      timer = window.setTimeout(() => tryAgain(), 2000);
+    }
 
-  //   return () => timer && clearTimeout(timer);
-  // }, [imageLoaded, dataLoaded]);
+    return () => timer && clearTimeout(timer);
+  }, [imageLoaded, dataLoaded]);
 
   console.log('records', records);
 
