@@ -1,3 +1,9 @@
+## Deployment
+
+Used vercel:
+
+https://thermographic-camera-git-master.malt.vercel.app/
+
 ## Getting Started
 
 First, install libraries (Node 12.11.0):
