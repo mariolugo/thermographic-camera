@@ -30,14 +30,14 @@ The image is stored in base 64.
 
 ## What I would do if I had more time?
 
-  - Testing, testing, testing
-  - Improve Polling with redux
-  - Fix Flash of Unstyled Content
-  - Fix blink on every polling
-  - Add immutable library
-  - Fix some types
-  - Add default props
-  - Improve documentation
+- Testing, testing, testing
+- Improve Polling with redux
+- Fix Flash of Unstyled Content
+- Fix blink on every polling
+- Add immutable library
+- Fix some types
+- Add default props
+- Improve documentation
 
 ## Workflow
 
@@ -85,22 +85,25 @@ Use to use SSR (server side rendering features), this can improve the SEO.
 
 Theming
 
-### Redux/Redux-Saga 
+### Redux/Redux-Saga
 
- State management and midleware for side effects
-### Axios 
+State management and midleware for side effects
 
- Promise based HTTP client
+### Axios
 
- ### husky 
+Promise based HTTP client
 
- precommit, ensure same slyting and no javascript errors before commit
-### eslint 
+### husky
 
- linter tool to find and fix problems in javascript code.
-### prettier 
+precommit, ensure same slyting and no javascript errors before commit
 
- to share the same code styling
+### eslint
+
+linter tool to find and fix problems in javascript code.
+
+### prettier
+
+to share the same code styling
 
 ## Structure overview
 
