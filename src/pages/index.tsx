@@ -1,8 +1,14 @@
+import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { Layout, Values, TableValues } from '../components';
+import { Layout, Values, TableValues, ImageViewer } from '../components';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
+import { useDispatch, useSelector } from 'react-redux';
+import { homeActions } from '../redux/home/actions';
+import { HomeState } from '../redux/home/types';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -17,17 +23,81 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-type Props = {};
+type Props = any;
 
-const data = {
-  ambientTemperture: 22.17,
-  exteriorTemperature: 24.91,
-  patientTemperature: 35.98,
-  risk: 'low',
+type State = {
+  home: HomeState;
 };
 
 const Home = (props: Props) => {
+  const [records, setRecords] = useState<Array<any>>([]);
   const classes = useStyles(props);
+  const dispatch = useDispatch();
+  const current = useSelector((state: State) => state.home.current);
+
+  useEffect(() => {
+    const timeStamp = +new Date();
+    dispatch(homeActions.fetchValuesAction(timeStamp));
+    dispatch(homeActions.fetchImageAction(timeStamp));
+  }, []);
+
+  const tryAgain = () => {
+    const timeStamp = +new Date();
+    dispatch(homeActions.fetchValuesAction(timeStamp));
+    dispatch(homeActions.fetchImageAction(timeStamp));
+  };
+
+  const clearLocalStorage = () => {
+    if (typeof window !== 'undefined') {
+      localStorage.clear();
+      setRecords([]);
+    }
+  };
+
+  const downloadImage = (timeStamp: number, image: string) => {
+    if (typeof window !== 'undefined') {
+      const downloadLink = document.createElement('a');
+      downloadLink.href = image;
+      downloadLink.download = `${timeStamp}`;
+      downloadLink.click();
+    }
+  };
+
+  const imageLoaded = current && !current.image?.fetching && current.image?.image;
+  const imageUndefined =
+    current && !current.image?.fetching && typeof current.image?.image === 'undefined';
+  const imageFetching = current && current.image?.fetching;
+  const dataLoaded = current && !current.data?.fetching;
+  const imageHasError = current && !current.image?.fetching && current.image?.error;
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const data = localStorage.getItem('evaValues') || '[]';
+      const parsedData = JSON.parse(data);
+
+      if (dataLoaded && imageLoaded) {
+        const input = {
+          timeStamp: current.timeStamp,
+          ...current.data,
+          image: current.image?.image,
+        };
+        setRecords([...parsedData, { ...input }]);
+        const dataString = [...parsedData, { ...input }];
+        localStorage.setItem('evaValues', JSON.stringify(dataString));
+      }
+    }
+  }, [current]);
+
+  useEffect(() => {
+    let timer: number;
+
+    if (dataLoaded && imageLoaded) {
+      timer = window.setTimeout(() => tryAgain(), 2000);
+    }
+
+    return () => timer && clearTimeout(timer);
+  }, [imageLoaded, dataLoaded]);
+
   return (
     <>
       <Head>
@@ -35,15 +105,30 @@ const Home = (props: Props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
-        <Values {...data} />
+        {dataLoaded && <Values {...current.data} />}
+
         <Grid container spacing={3} className={classes.container}>
           <Grid item xs={12} md={6}>
-            <TableValues />
+            {dataLoaded && <TableValues records={records} downloadImage={downloadImage} />}
           </Grid>
           <Grid item xs={12} md={6}>
-            <Paper className={classes.paper}>Image</Paper>
+            {imageFetching && <CircularProgress />}
+            {(imageHasError || imageUndefined) && (
+              <div>
+                <Typography>An error ocurred</Typography>
+                <Button variant="contained" color="primary" onClick={() => tryAgain()}>
+                  Try Again
+                </Button>
+              </div>
+            )}
+            {imageLoaded && !imageHasError && !imageUndefined && (
+              <ImageViewer image={current.image.image} />
+            )}
           </Grid>
         </Grid>
+        <Button variant="contained" color="primary" onClick={() => clearLocalStorage()}>
+          Clear local storage
+        </Button>
       </Layout>
     </>
   );
