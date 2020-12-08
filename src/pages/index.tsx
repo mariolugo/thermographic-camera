@@ -54,6 +54,15 @@ const Home = (props: Props) => {
     }
   };
 
+  const downloadImage = (timeStamp: number, image: string) => {
+    if (typeof window !== 'undefined') {
+      const downloadLink = document.createElement('a');
+      downloadLink.href = image;
+      downloadLink.download = `${timeStamp}`;
+      downloadLink.click();
+    }
+  };
+
   const imageLoaded = current && !current.image?.fetching && current.image?.image;
   const imageUndefined =
     current && !current.image?.fetching && typeof current.image?.image === 'undefined';
@@ -81,15 +90,15 @@ const Home = (props: Props) => {
     }
   }, [current]);
 
-  useEffect(() => {
-    let timer: number;
+  // useEffect(() => {
+  //   let timer: number;
 
-    if (dataLoaded && imageLoaded) {
-      timer = window.setTimeout(() => tryAgain(), 2000);
-    }
+  //   if (dataLoaded && imageLoaded) {
+  //     timer = window.setTimeout(() => tryAgain(), 2000);
+  //   }
 
-    return () => timer && clearTimeout(timer);
-  }, [imageLoaded, dataLoaded]);
+  //   return () => timer && clearTimeout(timer);
+  // }, [imageLoaded, dataLoaded]);
 
   console.log('records', records);
 
@@ -104,7 +113,7 @@ const Home = (props: Props) => {
 
         <Grid container spacing={3} className={classes.container}>
           <Grid item xs={12} md={6}>
-            {dataLoaded && <TableValues records={records} />}
+            {dataLoaded && <TableValues records={records} downloadImage={downloadImage} />}
           </Grid>
           <Grid item xs={12} md={6}>
             {imageFetching && <CircularProgress />}

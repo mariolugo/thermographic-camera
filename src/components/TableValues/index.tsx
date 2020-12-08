@@ -25,10 +25,11 @@ type Record = {
 
 type Props = {
   records: Array<Record>;
+  downloadImage: any;
 };
 
 export const TableValues = (props: Props) => {
-  const { records } = props;
+  const { records, downloadImage } = props;
   const classes = useStyles();
   return (
     <TableContainer component={Paper}>
@@ -54,7 +55,11 @@ export const TableValues = (props: Props) => {
               <TableCell align="right">{row.patientTemperature}</TableCell>
               <TableCell align="right">{row.risk}</TableCell>
               <TableCell align="right">
-                <IconButton color="primary" aria-label="upload picture" component="span">
+                <IconButton
+                  color="primary"
+                  aria-label="upload picture"
+                  component="span"
+                  onClick={() => downloadImage(row.timeStamp, row.image)}>
                   <GetAppIcon />
                 </IconButton>
               </TableCell>
