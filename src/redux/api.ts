@@ -29,7 +29,7 @@ const getClient = () => {
 const getImageClient = () => {
   const apiUrl = URL;
 
-  const config = {
+  const config: any = {
     baseURL: apiUrl,
     timeout: 30000,
     responseType: 'arraybuffer',
@@ -42,7 +42,7 @@ const getImageClient = () => {
 
 type Response = {
   status: number;
-  data: Record<string, unknown>;
+  data: any;
   headers: any;
 };
 // Standardize API response format across the application

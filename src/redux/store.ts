@@ -28,7 +28,11 @@ export const initStore = (initialState: any) => {
   const logger = createLogger({ collapsed: true }); // log every action to see what's happening behind the scenes.
   const sagaMiddleware = createSagaMiddleware(); // saga middleware
   // create store with reducers, initialState and middlewares.
-  const store = createStore(rootReducer(), initialState, bindMiddleware([sagaMiddleware, logger]));
+  const store: any = createStore(
+    rootReducer(),
+    initialState,
+    bindMiddleware([sagaMiddleware, logger]),
+  );
 
   // adding the saga middleware.
   store.sagaTask = sagaMiddleware.run(rootSaga, Api);

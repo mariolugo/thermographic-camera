@@ -115,7 +115,7 @@ const Home = (props: Props) => {
 
   // this creates a timer to simulate a polling.. not the best practice..
   // return a function to clear the timeout
-  useEffect(() => {
+  useEffect((): any => {
     let timer: number;
 
     if (dataLoaded && imageLoaded) {
@@ -149,7 +149,7 @@ const Home = (props: Props) => {
               </div>
             )}
             {imageLoaded && !imageHasError && !imageUndefined && (
-              <ImageViewer image={current.image.image} />
+              <ImageViewer image={current.image?.image} />
             )}
           </Grid>
         </Grid>

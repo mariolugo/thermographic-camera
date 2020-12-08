@@ -12,7 +12,7 @@ const useStyles = makeStyles((_) =>
 );
 
 type Props = {
-  image: string;
+  image: any;
 };
 
 /**

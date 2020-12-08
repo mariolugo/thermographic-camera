@@ -9,7 +9,9 @@ import {
 
 import type { HomeActions, HomeState } from './types';
 
-const initialState = {};
+const initialState = {
+  current: {},
+};
 
 export default (state: HomeState = initialState, action: HomeActions) => {
   switch (action.type) {

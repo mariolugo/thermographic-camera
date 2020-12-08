@@ -13,10 +13,10 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 type Props = {
-  ambientTemperture: number;
-  exteriorTemperature: number;
-  patientTemperature: number;
-  risk: string;
+  ambientTemperture?: number;
+  exteriorTemperature?: number;
+  patientTemperature?: number;
+  risk?: string;
 };
 
 const renderColor = (risk: string) => {
