@@ -76,8 +76,6 @@ const Home = (props: Props) => {
       const parsedData = JSON.parse(data);
 
       if (dataLoaded && imageLoaded) {
-        console.log('new record');
-
         const input = {
           timeStamp: current.timeStamp,
           ...current.data,
@@ -99,8 +97,6 @@ const Home = (props: Props) => {
 
     return () => timer && clearTimeout(timer);
   }, [imageLoaded, dataLoaded]);
-
-  console.log('records', records);
 
   return (
     <>
