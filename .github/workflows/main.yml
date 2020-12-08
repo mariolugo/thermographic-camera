@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./thermographic-camera
+        working-directory: ./
 
     steps:
       - name: Checkout 🛎️
