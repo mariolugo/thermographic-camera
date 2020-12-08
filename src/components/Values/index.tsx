@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 
@@ -35,6 +35,10 @@ const renderColor = (risk: string) => {
 export const Values = (props: Props) => {
   const { ambientTemperture, exteriorTemperature, patientTemperature, risk } = props;
   const classes = useStyles();
+
+  useEffect(() => {
+    if (risk === 'high') alert('High risk');
+  }, [risk]);
   return (
     <div className={classes.root}>
       <Paper elevation={1} className={classes.paper}>
