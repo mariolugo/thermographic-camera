@@ -30,13 +30,20 @@ yarn test:coverage
 
 The branching model used is gitflow, this helps a lot with collaboration and scaling the development team.
 
-### master 
+### master
+
 deployments to production
-### develop 
+
+### develop
+
 Developtment branch.
-### feature/initial_setup 
+
+### feature/initial_setup
+
 Adding tsconfig, precommiter and material ui.
+
 ### feature/layout
+
 Adding the base responsive layout.
 
 ## Styling
@@ -49,10 +56,9 @@ Used `prettier`, it is an opinionated code formatter, this will assure that the 
 
 These are ones of the major libraries I used to accomplish this test.
 
+### Next.js
 
-### Next.js 
-
- Use to use SSR (server side rendering features), this can improve the SEO.
+Use to use SSR (server side rendering features), this can improve the SEO.
 
 ### Material UI
 
